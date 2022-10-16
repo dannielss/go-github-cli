@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"log"
 
 	"github.com/dannielss/go-github-cli/cmd/outputs"
 )
@@ -10,16 +9,20 @@ import (
 func main() {
 	var h bool
 	var e bool
-	var user string
+	var u string
+	var w int
 
-	flag.StringVar(&user, "u", "", "")
-	flag.StringVar(&user, "user", "", "")
+	flag.StringVar(&u, "u", "", "")
+	flag.StringVar(&u, "u", "", "")
 
 	flag.BoolVar(&h, "h", false, "")
 	flag.BoolVar(&h, "help", false, "")
 
 	flag.BoolVar(&e, "e", false, "")
 	flag.BoolVar(&e, "export", false, "")
+
+	flag.IntVar(&w, "w", 1, "")
+	flag.IntVar(&w, "w", 1, "")
 
 	setFlag(flag.CommandLine)
 
@@ -32,13 +35,17 @@ func main() {
 
 	outputs.GetHeader()
 
-	if user != "" {
-		outputs.GetRepositoriesInfo(user)
+	if u != "" && !e {
+		outputs.GetRepositoriesInfo(u)
 		return
 	}
 
-	if e {
-		log.Printf("Exporting as csv...")
+	if u != "" && e {
+		if w > 1 {
+			outputs.ExportAsCSVConcurrently(u, w)
+		} else {
+			outputs.ExportAsCSV(u)
+		}
 	}
 }
 
