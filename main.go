@@ -13,7 +13,7 @@ func main() {
 	var w int
 
 	flag.StringVar(&u, "u", "", "")
-	flag.StringVar(&u, "u", "", "")
+	flag.StringVar(&u, "user", "", "")
 
 	flag.BoolVar(&h, "h", false, "")
 	flag.BoolVar(&h, "help", false, "")
@@ -22,7 +22,7 @@ func main() {
 	flag.BoolVar(&e, "export", false, "")
 
 	flag.IntVar(&w, "w", 1, "")
-	flag.IntVar(&w, "w", 1, "")
+	flag.IntVar(&w, "workers", 1, "")
 
 	setFlag(flag.CommandLine)
 
